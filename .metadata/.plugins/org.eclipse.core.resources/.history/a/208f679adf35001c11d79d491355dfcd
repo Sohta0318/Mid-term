@@ -1,0 +1,122 @@
+package Airtline;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+public class Data {
+	public ArrayList<Seat> seat;
+	public ArrayList<Passenger> passenger;
+	public ArrayList<Flight> flight;
+	public ArrayList<Ticket> ticket;
+	
+	public Data() {
+		this.seat=new ArrayList<Seat>();
+		this.passenger=new ArrayList<Passenger>();
+		this.flight=new ArrayList<Flight>();
+		this.ticket=new ArrayList<Ticket>();
+		
+	}
+
+	public ArrayList<Seat> getSeat() {
+		return seat;
+	}
+
+	public ArrayList<Passenger> getPassenger() {
+		return passenger;
+	}
+
+	public ArrayList<Flight> getFlight() {
+		return flight;
+	}
+
+	public ArrayList<Ticket> getTicket() {
+		return ticket;
+	}
+	
+	public void addSeat(int seatNumber) {
+		
+		seat.add(new Seat(seatNumber));
+	}
+	
+	public void addFlight(int flightNum, String departure, String arrive) {
+		flight.add(new Flight(flightNum, departure, arrive));
+	}
+	
+	public boolean addPassenger(String passengerName) {
+		boolean passengerExists = false;
+		
+		for (Passenger item : passenger)
+		{
+			if(passengerName.equals(item.name)){
+				passengerExists = true;
+		}
+             
+		}
+		if(passengerExists==false){
+			passenger.add(new Passenger(passengerName));
+		}
+		  return passengerExists;
+	}
+	
+	public String addTicket(LocalDate flightDate, String passengerName, int flightNum, int seatNum)
+	{
+		//find the passenger object
+		Passenger ticketPassenger = null;
+		for(Passenger item: getPassenger())
+		{
+			if(passengerName.equals(item.getName())){
+				ticketPassenger = item;
+			}
+		}
+		// Find the flight object
+		Flight ticketFlight = null;
+		for(Flight item: getFlight())
+		{
+			if(flightNum == item.getFlightNo()){
+				ticketFlight= item;
+			}
+		}
+		
+		// Find the seat object
+				Seat ticketSeat = null;
+				for(Seat item: getSeat())
+				{
+					if(seatNum == item.getSeat()){
+						ticketSeat= item;
+					}
+				}
+		// combining information on ticket object 
+		Ticket 	tmpTicket = new Ticket();
+		tmpTicket.setFlightDate(flightDate);
+		tmpTicket.setPassenger(ticketPassenger);
+		tmpTicket.setFlight(ticketFlight);
+		tmpTicket.setSeat(ticketSeat);
+		
+		ticket.add(tmpTicket);
+		return tmpTicket.toString();
+	}
+	
+	public ArrayList<Seat> getOpenSeats( LocalDate departureDate, int flightNumber ){
+		ArrayList<Seat> openSeats = getSeat();
+		for(Ticket item: getTicket()){
+			if(departureDate.equals(item.getFlightDate()) && flightNumber == item.getFlight().getFlightNo()){
+				openSeats.remove(item.getSeat());
+			}
+	   }
+       return openSeats;
+	}
+	
+	//Bootstrap method to add fix data
+	public void bootstrap() {
+		addSeat(1);
+		addSeat(2);
+		addSeat(3);
+		addSeat(4);
+		addSeat(5);
+		addSeat(6);
+		addFlight(1000, "Vancouver", "Tokyo");	
+		addFlight(1001, "Chicago", "New York");	
+		addFlight(2000, "New York", "Chicago");	
+		addFlight(2001, "Chicago", "Los Angeles");	
+	}
+}

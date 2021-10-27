@@ -1,0 +1,92 @@
+package Airtline;
+
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class main {
+
+	public static void main(String[] args) {
+		Data data = new Data();
+		data.bootstrap();
+
+		boolean always = true;
+		String passengerName = null;
+		int flightNumber = 0;
+		int seatNumber = 0;
+		LocalDate flightDate = LocalDate.now();
+		//reading input from screen;
+		Scanner scanner = new Scanner(System.in);
+		String name = scanner.next();
+//		InputStreamReader input = new InputStreamReader(System.in);
+//		BufferedReader screenInput = new BufferedReader(input);
+		
+		while(always)
+		{
+			
+			System.out.println("Enter Passenger: ");
+			
+			try {
+//				passengerName = screenInput.readLine();
+				passengerName = scanner.next();
+				
+			} catch (Exception e) {
+				System.out.println("Input valid Name");
+			}
+			boolean result = data.addPassenger(passengerName);
+
+
+			if(result)
+			{
+				System.out.println("Welcome back: " +  passengerName);
+				String ticketInfo = data.addTicket(flightDate, passengerName, flightNumber, seatNumber);
+				System.out.println("\nHere is your reservation");
+				System.out.println(ticketInfo + "\n");
+				return;
+			}
+			else{
+				System.out.println("Welcome: " +  passengerName);
+			}
+	
+			System.out.println("\nHere are today's flights: ");
+			for(Flight item: data.getFlight()){
+				System.out.println(item);
+			}
+			System.out.println("Enter the flight number");
+			try{
+//			flightNumber = Integer.parseInt(screenInput.readLine());
+				flightNumber = scanner.nextInt();
+			} catch (Exception e) {
+				System.out.println("Please enter flight number");
+		}
+//			catch (NumberFormatException e) {
+//				System.out.println("That was not a number");
+//			}
+			
+
+			
+			System.out.println("Here are seats on that flight: ");
+			ArrayList<Seat> openSeats = data.getOpenSeats(flightDate, flightNumber);
+			for(Seat item: openSeats){
+				System.out.print(item.getSeat() + ",");
+			}
+			System.out.println("\nEnter the seat number you want: ");
+			try{
+//				seatNumber = Integer.parseInt(screenInput.readLine());
+				seatNumber = scanner.nextInt();
+				
+			}
+			catch (Exception e) {
+				System.out.println("Please enter a seat number");
+		}
+			String ticketInfo = data.addTicket(flightDate, passengerName, flightNumber, seatNumber);
+			System.out.println("\nReservations are completed!! Here is ticket detail");
+			System.out.println(ticketInfo + "\n");
+		}
+
+	}
+
+}

@@ -1,0 +1,8 @@
+package Airtline;
+
+public class Flight {
+	public int flightNo;
+public String depature;
+public String arive;
+
+}

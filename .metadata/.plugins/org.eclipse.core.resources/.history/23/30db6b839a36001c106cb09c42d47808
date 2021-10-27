@@ -1,0 +1,20 @@
+package Airtline;
+
+public class Seat {
+	public int seat;
+	
+	public Seat(int seat){
+		
+		this.seat=seat;
+	}
+	public int getSeat() {
+		return seat;
+	}
+	
+	@Override
+	public String toString() {
+		return " Seat: " + seat;
+	}
+	
+	
+}

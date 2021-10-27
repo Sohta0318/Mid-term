@@ -1,0 +1,11 @@
+package Airtline;
+
+public class main {
+
+	public static void main(String[] args) {
+ Seat seat = new Seat();
+ System.out.println(seat);
+
+	}
+
+}

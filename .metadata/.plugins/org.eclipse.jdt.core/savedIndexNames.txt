@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+/Volumes/Lexar/Documents/CICCC/MidTerm-Project/.metadata/.plugins/org.eclipse.jdt.core
+3972085001.index
+1381685364.index
+1865797976.index
